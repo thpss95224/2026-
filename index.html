@@ -6,35 +6,65 @@
 <title>🇭🇰 香港行程 5/14–5/17</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root { --red: #C8102E; --gold: #F4B942; --dark: #1A1A2E; --bg: #F5F0EB; --text: #2C2C2C; --muted: #888; --nav-h: 64px; }
+  :root {
+    --red: #C8102E;
+    --gold: #F4B942;
+    --dark: #1A1A2E;
+    --bg: #F5F0EB;
+    --text: #2C2C2C;
+    --muted: #888;
+    --nav-h: 64px;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: calc(var(--nav-h) + 16px); }
+
   .header { background: linear-gradient(135deg, var(--red) 0%, #8B0000 100%); color: white; padding: 28px 20px 20px; position: relative; overflow: hidden; }
+  .header::before { content: '🇭🇰'; position: absolute; right: -10px; top: -10px; font-size: 120px; opacity: 0.12; }
+  .header-subtitle { font-size: 12px; letter-spacing: 3px; opacity: 0.8; text-transform: uppercase; margin-bottom: 6px; }
   .header-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1.2; }
-  .content { padding: 20px; text-align: center; }
-  .day-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-</style>
-</head>
-<body>
+  .header-meta { margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .header-badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 500; }
 
-<div class="header">
-  <div class="header-subtitle">ITINERARY</div>
-  <div class="header-title">🇭🇰 香港行程<br>5/14 – 5/17</div>
-</div>
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h); background: var(--dark); display: flex; z-index: 100; border-top: 2px solid var(--gold); }
+  .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: rgba(255,255,255,0.45); cursor: pointer; transition: color 0.2s; border: none; background: none; padding: 6px 0; }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn .icon { font-size: 20px; line-height: 1; }
+  .nav-btn .label { font-size: 9px; font-weight: 500; letter-spacing: 0.5px; }
 
-<div class="content">
-  <div class="day-card">
-    <h3>正在加載行程細節...</h3>
-    <p>請確認代碼已完整保存</p>
-  </div>
-</div>
+  .page { display: none; padding: 16px; animation: fadeIn 0.25s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-<div style="position: fixed; bottom: 0; left: 0; right: 0; height: 64px; background: #1A1A2E; border-top: 2px solid #F4B942; display: flex; align-items: center; justify-content: space-around; color: white;">
-  <span>Day 1</span>
-  <span>Day 2</span>
-  <span>Day 3</span>
-  <span>Day 4</span>
-</div>
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin: 20px 0 10px; }
 
-</body>
-</html>
+  .day-header { background: var(--dark); color: white; border-radius: 16px 16px 0 0; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+  .day-label { font-size: 11px; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; }
+  .day-title { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .day-badge { background: var(--gold); color: var(--dark); border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+
+  .timeline { background: white; border-radius: 0 0 16px 16px; padding: 4px 0 12px; margin-bottom: 4px; }
+  .timeline-item { display: flex; padding: 10px 16px; gap: 12px; position: relative; }
+  .timeline-item:not(:last-child)::after { content: ''; position: absolute; left: 36px; top: 38px; bottom: -2px; width: 2px; background: #F0EDE8; }
+
+  .time-col { min-width: 44px; text-align: right; padding-top: 2px; }
+  .time-text { font-size: 11px; font-weight: 700; color: var(--red); }
+
+  .dot { width: 28px; min-width: 28px; height: 28px; border-radius: 50%; background: var(--bg); border: 2px solid #E0DAD3; display: flex; align-items: center; justify-content: center; font-size: 13px; position: relative; z-index: 1; }
+  .dot.highlight { background: var(--red); border-color: var(--red); }
+  .dot.gold { background: var(--gold); border-color: var(--gold); }
+
+  .item-content { flex: 1; padding-top: 3px; }
+  .item-title { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .item-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.6; }
+
+  .item-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; background: #FFF3CD; color: #8B6914; border: 1px solid #F4B942; }
+  .tag.red { background: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
+  .tag.green { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
+  .tag.blue { background: #DBEAFE; color: #1E40AF; border-color: #93C5FD; }
+
+  .map-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--dark); color: white; border: none; border-radius: 20px; padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer; margin-top: 8px; text-decoration: none; font-family: 'Noto Sans TC', sans-serif; }
+  .map-btn.gold { background: var(--gold); color: var(--dark); }
+
+  .info-box { background: #FFF8E7; border: 1px solid var(--gold); border-radius: 12px; padding: 12px 14px; font-s
+             
